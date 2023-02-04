@@ -28,7 +28,7 @@ const Signup = () => {
         </Or>
         <ExtraInfo>
             <Dont>Already have an account?</Dont>
-            <Link to="signin" style={{color: "inherit"}}>
+            <Link to="/login" style={{color: "inherit"}}>
                 <Create>Login</Create>
             </Link>
         </ExtraInfo>
