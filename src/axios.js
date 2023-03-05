@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 const instance = axios.create({
-    baseURL: "http://localhost:8080/api",
+    baseURL: "https://drab-pear-scorpion-cape.cyclic.app/api",
     withCredentials: true,
     headers: {
         "Content-type": "application/json",
