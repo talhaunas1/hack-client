@@ -1,39 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
 import main9 from "../assests/images/main9.jpg";
 import { Link } from 'react-router-dom';
+import axios from '../axios'
+import { useNavigate } from 'react-router-dom';
+
 
 const Signup = () => {
+
+    const navigate = useNavigate();
+
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const submitHandler = async () => {
+        try {
+            // const data = {
+            //     userName,
+            //     email,
+            //     password
+            // }
+            // console.log('running');
+            const response = await axios.post('/auth/signup', { userName, email, password })
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <Container>
-      <Form>
-        <Heading>Sign up</Heading>
-        <Line />
-        <Welcome>Create your account</Welcome>
-        <Input placeholder="Name "/> <br />
-        <Input placeholder="Email "/> <br />
-        <Input placeholder="Password"/>
-        <Info>
-        
-        </Info>
-        <Button>Sign In</Button>
-        <Or>
-            <Text>Or sign in with</Text>
-            <Logos>
-                <FacebookIcon fontSize="large"/>
-                <GoogleIcon fontSize="large"/>
-            </Logos>
-        </Or>
-        <ExtraInfo>
-            <Dont>Already have an account?</Dont>
-            <Link to="/login" style={{color: "inherit"}}>
-                <Create>Login</Create>
-            </Link>
-        </ExtraInfo>
-      </Form>
-    </Container>
+            <Form>
+                <Heading>Sign up</Heading>
+                <Line />
+                <Welcome>Create your account</Welcome>
+                <Input placeholder="Name " type='text' required onChange={(e)=>setUserName(e.target.value)} /> <br />
+                <Input placeholder="Email " type='email' required onChange={(e)=>setEmail(e.target.value)} /> <br />
+                <Input placeholder="Password"  type='password'  required minLength='4' onChange={(e)=>setPassword(e.target.value)}/>
+                <Info>
+
+                </Info>
+                <Button onClick={submitHandler}>Register</Button>
+                <Or>
+                    <Text>Or sign in with</Text>
+                    <Logos>
+                        <FacebookIcon fontSize="large" />
+                        <GoogleIcon fontSize="large" />
+                    </Logos>
+                </Or>
+                <ExtraInfo>
+                    <Dont>Already have an account?</Dont>
+                    <Link to="/" style={{ color: "inherit" }}>
+                        <Create>Login</Create>
+                    </Link>
+                </ExtraInfo>
+            </Form>
+        </Container>
     );
 };
 
@@ -103,6 +128,7 @@ const Button = styled.div`
     justify-content: center;
     font-weight: bold;
     margin: 10px 0px;
+    cursor:pointer;
 `;
 
 
